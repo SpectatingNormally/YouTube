@@ -1,0 +1,2107 @@
+<!doctype html><html><head><style type="text/css">:root {
+  --yt-black: #0f0f0f;
+  --yt-light-black: #272727;
+  --yt-border: #3f3f3f;
+  --yt-text-primary: #f1f1f1;
+  --yt-text-secondary: #aaa;
+  --yt-red: #ff0000;
+  --yt-blue: #3ea6ff;
+  --yt-card-bg: #181818;
+  --yt-hover: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", "Arial", sans-serif;
+}
+
+body {
+  background-color: var(--yt-black);
+  color: var(--yt-text-primary);
+  overflow-x: hidden;
+}
+
+/* Authentication Screen */
+#auth-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--yt-black);
+}
+
+.auth-card {
+  background: var(--yt-card-bg);
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--yt-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 380px;
+}
+
+.auth-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  background: #000;
+  border: 1px solid var(--yt-border);
+  border-radius: 4px;
+  color: #fff;
+  outline: none;
+}
+
+.auth-card input:focus {
+  border-color: var(--yt-blue);
+}
+
+/* Reusable Youtube Buttons */
+.yt-btn {
+  border: none;
+  border-radius: 18px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.yt-btn.primary {
+  background: var(--yt-blue);
+  color: #0f0f0f;
+  padding: 10px 16px;
+}
+
+.yt-btn.secondary {
+  background: var(--yt-light-black);
+  color: var(--yt-text-primary);
+}
+
+.yt-btn.secondary:hover {
+  background: var(--yt-border);
+}
+
+.yt-btn.sub-btn {
+  background: #fff;
+  color: #0f0f0f;
+  border-radius: 20px;
+  padding: 10px 18px;
+}
+
+.yt-btn.sub-btn.subscribed {
+  background: var(--yt-light-black);
+  color: var(--yt-text-primary);
+}
+
+.yt-btn.text-only {
+  background: transparent;
+  color: var(--yt-blue);
+}
+
+.yt-btn.pill-btn {
+  background: var(--yt-light-black);
+  color: var(--yt-text-primary);
+  border-radius: 20px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--yt-text-primary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: var(--yt-hover);
+}
+
+/* App Header */
+#app-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 56px;
+  background: var(--yt-black);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.yt-logo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+
+.header-center {
+  flex: 0 1 728px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 16px;
+  background: #121212;
+  border: 1px solid var(--yt-border);
+  border-radius: 40px 0 0 40px;
+  color: #fff;
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: var(--yt-blue);
+}
+
+.search-btn {
+  padding: 9px 20px;
+  background: var(--yt-light-black);
+  border: 1px solid var(--yt-border);
+  border-left: none;
+  border-radius: 0 40px 40px 0;
+  color: var(--yt-text-primary);
+  cursor: pointer;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-chip {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 6px 12px;
+  background: var(--yt-light-black);
+  border-radius: 16px;
+}
+
+/* Layout & Sidebar */
+.main-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 240px;
+  background: var(--yt-black);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  color: var(--yt-text-primary);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.side-link:hover, .side-link.active {
+  background: var(--yt-light-black);
+}
+
+.content-area {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Video Grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.video-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  content-visibility: auto;
+  contain-intrinsic-size: 280px 220px;
+}
+
+.thumbnail-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.thumbnail-wrapper img, .thumbnail-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-details {
+  display: flex;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.video-text-meta h4 {
+  font-size: 0.95rem;
+  line-height: 1.3;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.video-author-link, .sub-text {
+  font-size: 0.85rem;
+  color: var(--yt-text-secondary);
+}
+
+/* Channel Header */
+.channel-banner {
+  width: 100%;
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.channel-header-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+/* Profile Picture Hover & Darken Overlay */
+.avatar-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#channel-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  text-align: center;
+  padding: 8px;
+}
+
+.avatar-overlay span {
+  font-size: 0.65rem;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.avatar-container:hover .avatar-overlay {
+  opacity: 1;
+}
+
+.channel-details-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: var(--yt-light-black);
+  border: 1px solid var(--yt-border);
+  border-radius: 8px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: var(--yt-text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background: var(--yt-border);
+}
+
+.danger-text {
+  color: #ff4e4e !important;
+}
+
+/* Watch View */
+.watch-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.player-container {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.player-container iframe, .player-container video {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.watch-title {
+  font-size: 1.25rem;
+  margin: 12px 0;
+}
+
+.watch-channel-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--yt-border);
+}
+
+.channel-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.channel-meta-group img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Like/Dislike Segmented Button */
+.segmented-like-dislike {
+  display: flex;
+  align-items: center;
+  background: var(--yt-light-black);
+  border-radius: 20px;
+  padding: 0 4px;
+}
+
+.seg-btn {
+  background: transparent;
+  border: none;
+  color: var(--yt-text-primary);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.seg-btn:hover {
+  background: var(--yt-border);
+}
+
+.seg-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--yt-border);
+}
+
+/* Youtube Style Comments Section */
+.comments-container {
+  margin-top: 24px;
+}
+
+.comments-header {
+  margin-bottom: 24px;
+}
+
+.add-comment-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.add-comment-box input {
+  width: 100%;
+  padding: 8px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--yt-border);
+  color: var(--yt-text-primary);
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.add-comment-box input:focus {
+  border-bottom-color: var(--yt-text-primary);
+}
+
+.comment-btn-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-card {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.comment-card.pinned {
+  border-left: 2px solid var(--yt-blue);
+  padding-left: 10px;
+}
+
+.comment-content-area {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.comment-actions button {
+  background: transparent;
+  border: none;
+  color: var(--yt-text-secondary);
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.comment-actions button:hover {
+  color: var(--yt-text-primary);
+}
+
+/* Threaded Replies Styles */
+.replies-container {
+  margin-left: 36px;
+  margin-top: 12px;
+  border-left: 2px solid var(--yt-border);
+  padding-left: 12px;
+}
+
+/* Modals */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+.modal-content {
+  background: var(--yt-card-bg);
+  padding: 24px;
+  border-radius: 12px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-content input, .modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  background: #000;
+  border: 1px solid var(--yt-border);
+  border-radius: 4px;
+  color: #fff;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Fixed Modern Miniplayer */
+.miniplayer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  z-index: 150;
+  border: 1px solid var(--yt-border);
+}
+
+.miniplayer-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.miniplayer:hover .miniplayer-controls {
+  opacity: 1;
+}
+
+#miniplayer-video-content {
+  width: 100%;
+  height: 100%;
+}
+
+#miniplayer-video-content iframe,
+#miniplayer-video-content video {
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}</style></head><body><!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>YouTube</title>
+	<link rel="stylesheet" href="style.css" />
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+	<!-- Authentication Screen -->
+	<div id="auth-screen">
+		<div class="auth-card">
+			<div class="auth-brand">
+				<svg class="yt-logo-icon" viewBox="0 0 24 24" width="36" height="36" fill="#FF0000">
+					<path
+						d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+				</svg>
+				<h2 id="auth-title">Sign in to YouTube</h2>
+			</div>
+			<form id="auth-form" onsubmit="handleAuth(event)">
+				<div id="email-field-wrapper" style="display: none;">
+					<input type="email" id="auth-email" placeholder="Email address" />
+				</div>
+					<input type="text" id="auth-username" placeholder="Username or email" required />
+					<input type="password" id="auth-password" placeholder="Password" required />
+					<button type="submit" id="auth-submit-btn" class="yt-btn primary">Log In</button>
+			</form>
+			<button id="toggle-auth-mode" class="yt-btn text-only" onclick="toggleAuthMode()">Create account</button>
+		</div>
+	</div>
+
+	<!-- Verification Modal -->
+	<div id="verify-modal" class="modal" style="display: none;">
+		<div class="modal-content">
+			<h3>Enter Verification Code</h3>
+			<p style="font-size: 0.85rem; color: var(--yt-text-secondary);">Check your system alert for the 6-digit
+				code.</p>
+			<input type="text" id="verify-code-input" placeholder="6-digit code" />
+			<div class="modal-actions">
+				<button class="yt-btn text-only" onclick="closeVerificationPortal()">Cancel</button>
+				<button class="yt-btn primary" onclick="confirmVerificationCode()">Verify</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main App Screen -->
+	<div id="app-screen" style="display: none;">
+
+		<!-- Navigation Header -->
+		<header class="app-header">
+			<div class="header-left">
+				<button class="icon-btn sidebar-toggle">
+					<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z"/></svg>
+				</button>
+				<div class="yt-logo" onclick="showSection('home')">
+					<svg viewBox="0 0 24 24" width="28" height="28" fill="#FF0000">
+						<path
+							d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+					</svg>
+					<span class="logo-text">YouTube</span>
+				</div>
+			</div>
+			<div class="header-center">
+				<div class="search-box">
+					<input type="text" id="search-input" placeholder="Search" />
+					<button class="search-btn" onclick="handleSearch()">
+						<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.87 20.17l-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+					</button>
+				</div>
+			</div>
+			<div class="header-right">
+				<button class="yt-btn pill-btn" onclick="openUploadModal()">
+					<span>+ Create</span>
+				</button>
+				<span id="header-username" class="user-chip" onclick="showSection('my-channel')"></span>
+				<button class="yt-btn text-only" onclick="logout()">Sign Out</button>
+			</div>
+		</header>
+
+		<div class="main-layout">
+			<!-- Sidebar Navigation -->
+			<aside class="sidebar">
+				<button id="side-home" class="side-link active" onclick="showSection('home')">
+					<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+					<span>Home</span>
+				</button>
+				<button id="side-channel" class="side-link" onclick="showSection('my-channel')">
+					<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+					<span>Your Channel</span>
+				</button>
+			</aside>
+
+			<!-- Main Content Area -->
+			<main class="content-area">
+
+				<!-- Home Section -->
+				<section id="home-section">
+					<div id="main-video-grid" class="video-grid"></div>
+				</section>
+
+				<!-- Channel Section -->
+				<section id="channel-section" style="display: none;">
+					<div id="channel-banner-element" class="channel-banner"></div>
+					<div class="channel-header-info">
+						<div class="avatar-container" onclick="triggerAvatarUpload()">
+							<img id="channel-avatar" src="" alt="Avatar" />
+							<div class="avatar-overlay">
+								<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+									<path d="M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z" />
+									<path
+										d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
+								</svg>
+								<span>Change profile picture</span>
+							</div>
+						</div>
+						<div class="channel-details-text">
+							<h2 id="channel-name-display"></h2>
+							<p id="channel-stats-display" class="sub-text"></p>
+							<p id="channel-desc-display" class="sub-text"></p>
+						</div>
+
+						<div id="channel-profile-action-wrapper" style="display: none;">
+							<button id="channel-sub-button" class="yt-btn sub-btn" onclick="toggleSubscribeAction('profile')">Subscribe</button>
+						</div>
+
+						<div id="channel-dropdown-anchor" style="display: none;">
+							<button class="yt-btn secondary options-trigger-btn" onclick="toggleDropdown(event)">Customize Channel</button>
+							<div id="channel-options-menu" class="dropdown-menu">
+								<button onclick="openEditChannelModal()">Edit Description</button>
+								<button onclick="triggerBannerUpload()">Change Banner</button>
+								<button onclick="deleteChannel()" class="danger-text">Delete Channel</button>
+							</div>
+						</div>
+					</div>
+
+					<h3 class="section-title">Videos</h3>
+					<div id="channel-videos-grid" class="video-grid"></div>
+				</section>
+
+				<!-- Watch Section -->
+				<section id="watch-section" style="display: none;">
+					<div class="watch-layout">
+						<div class="watch-main">
+							<div id="main-watch-player-container" class="player-container"></div>
+
+							<h1 id="watch-video-title" class="watch-title"></h1>
+
+							<div class="watch-channel-bar">
+								<div class="channel-meta-group">
+									<img id="watch-channel-avatar" src="" alt="Avatar" onclick="navigateToChannelFromWatch()" />
+									<div class="meta-names">
+										<h4 id="watch-channel-name" onclick="navigateToChannelFromWatch()"></h4>
+										<p id="watch-subscriber-count" class="sub-text"></p>
+									</div>
+									<button id="watch-sub-button" class="yt-btn sub-btn" onclick="toggleSubscribeAction('watch')">Subscribe</button>
+								</div>
+
+								<!-- Social Bar -->
+								<div class="video-social-bar">
+									<div class="segmented-like-dislike">
+										<button id="like-btn" class="seg-btn" onclick="handleVote(1)">
+											<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+											<span id="like-count">0</span>
+										</button>
+										<div class="seg-divider"></div>
+										<button id="dislike-btn" class="seg-btn" onclick="handleVote(-1)">
+											<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03 3.2c0 .41.17.79.44 1.06L8.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg>
+											<span id="dislike-count">0</span>
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<!-- Comments Section -->
+							<div class="comments-container">
+								<div class="comments-header">
+									<h3>Comments</h3>
+								</div>
+
+								<div class="add-comment-box">
+									<input type="text" id="comment-input" placeholder="Add a comment..." />
+									<div class="comment-btn-actions">
+										<button class="yt-btn primary" onclick="handlePostComment()">Comment</button>
+									</div>
+								</div>
+
+								<div id="comments-list"></div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			</main>
+		</div>
+	</div>
+
+	<!-- Upload Video Modal -->
+	<div id="upload-modal" class="modal" style="display: none;">
+		<div class="modal-content">
+			<h3>Upload Video</h3>
+			<input type="text" id="video-title-input" placeholder="Video Title" required />
+			<input type="text" id="video-url-input" placeholder="Video URL (YouTube or Direct MP4 Link)" />
+			<p style="text-align: center; margin: 5px 0; color: var(--yt-text-secondary);">OR</p>
+			<input type="file" id="video-file-input" accept="video/mp4,video/*" />
+			<div class="modal-actions">
+				<button class="yt-btn text-only" onclick="closeUploadModal()">Cancel</button>
+				<button id="upload-submit-btn" class="yt-btn primary" onclick="processVideoUpload()">Upload</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Edit Channel Modal -->
+	<div id="edit-channel-modal" class="modal" style="display: none;">
+		<div class="modal-content">
+			<h3>Edit Channel Description</h3>
+			<textarea id="edit-desc-input" placeholder="Channel Description..."></textarea>
+			<div class="modal-actions">
+				<button class="yt-btn text-only" onclick="closeEditModal()">Cancel</button>
+				<button class="yt-btn primary" onclick="saveChannelEdits()">Save</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Miniplayer Portal -->
+	<div id="miniplayer-portal" class="miniplayer" style="display: none;">
+		<div class="miniplayer-controls">
+			<button class="icon-btn" onclick="expandMiniplayerAction()" title="Expand">
+				<svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+			</button>
+			<button class="icon-btn" onclick="closeMiniplayerAction()" title="Close">
+				<svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+			</button>
+		</div>
+		<div id="miniplayer-video-content"></div>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+
+</html><script type="text/javascript">// =========================================================================
+// SUPABASE CLOUD CONFIGURATION & REALTIME DATABASE SYNC
+// =========================================================================
+var SUPABASE_URL = 'https://cnyagduuvbqogjzvzbjd.supabase.co';
+var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNueWFnZHV1dmJxb2dqenZ6YmpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkyMjQ5MTQsImV4cCI6MjEwNDgwMDkxNH0.sTRfpGAbSvydr-MjcdsM6rkiyc4SDkmb-6keujS7ROM';
+
+var supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: {
+    storage: window.localStorage,
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true
+  }
+}) : null;
+
+// Auth Listeners for Session Persistence & Recovery
+if (supabaseClient) {
+  supabaseClient.auth.onAuthStateChange(function (event, session) {
+    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+      console.log('Session ready:', session?.user?.id);
+    }
+  });
+
+  window.addEventListener('focus', async function () {
+    const { data: { session }, error } = await supabaseClient.auth.getSession();
+    if (error || !session) {
+      await supabaseClient.auth.refreshSession();
+    }
+  });
+}
+
+// Local state caches
+var db = { users: {}, videos: [] };
+var currentUser = JSON.parse(localStorage.getItem('jsidoer_current_user')) || JSON.parse(sessionStorage.getItem('jsidoer_current_user')) || null;
+var isSignUpMode = false;
+var activeVerificationCode = null;
+var pendingUserPayload = null;
+var activeViewingChannel = null;
+var currentlyPlayingVideoData = null;
+
+async function syncWithSupabase() {
+  if (!supabaseClient) return;
+
+  // Fetch all users
+  const { data: usersData } = await supabaseClient.from('users').select('*');
+  if (usersData) {
+    db.users = {};
+    usersData.forEach(function (u) {
+      db.users[u.username] = u;
+    });
+  }
+
+  // Fetch all videos
+  const { data: videosData } = await supabaseClient.from('videos').select('*').order('created_at', { ascending: false });
+  if (videosData) {
+    db.videos = videosData;
+  }
+}
+
+async function init() {
+  await syncWithSupabase();
+
+  var authScreen = document.getElementById('auth-screen');
+  var appScreen = document.getElementById('app-screen');
+  var headerUsername = document.getElementById('header-username');
+
+  // Add event delegation for main grid to handle click events efficiently
+  var mainGrid = document.getElementById('main-video-grid');
+  if (mainGrid && !mainGrid.getAttribute('data-has-listener')) {
+    mainGrid.setAttribute('data-has-listener', 'true');
+    mainGrid.addEventListener('click', handleGridClick);
+  }
+
+  var chanGrid = document.getElementById('channel-videos-grid');
+  if (chanGrid && !chanGrid.getAttribute('data-has-listener')) {
+    chanGrid.setAttribute('data-has-listener', 'true');
+    chanGrid.addEventListener('click', handleGridClick);
+  }
+
+  if (currentUser) {
+    if (authScreen) authScreen.style.display = 'none';
+    if (appScreen) appScreen.style.display = 'flex';
+    if (headerUsername) headerUsername.innerText = currentUser.username;
+    if (typeof window.renderFeed === 'function') window.renderFeed();
+  } else {
+    if (authScreen) authScreen.style.display = 'flex';
+    if (appScreen) appScreen.style.display = 'none';
+  }
+}
+
+// Global Grid Event Delegation Handler
+function handleGridClick(e) {
+  var target = e.target.closest('[data-action]');
+  if (!target) return;
+
+  var action = target.getAttribute('data-action');
+  var id = target.getAttribute('data-id');
+  var author = target.getAttribute('data-author');
+
+  if (action === 'play' && id) {
+    launchVideoPlayback(id);
+  } else if (action === 'profile' && author) {
+    showSection('view-profile', author);
+  } else if (action === 'delete' && id) {
+    removeTargetVideo(id);
+  }
+}
+
+function toggleAuthMode() {
+  var usernameInput = document.getElementById('auth-username');
+  var submitBtn = document.getElementById('auth-submit-btn');
+  var toggleBtn = document.getElementById('toggle-auth-mode');
+  var emailFieldWrapper = document.getElementById('email-field-wrapper');
+  var emailInput = document.getElementById('auth-email');
+
+  isSignUpMode = !isSignUpMode;
+
+  if (isSignUpMode) {
+    if (usernameInput) usernameInput.placeholder = "Username";
+    if (submitBtn) submitBtn.innerText = 'Sign Up';
+    if (toggleBtn) toggleBtn.innerText = 'Already have an account? Sign in';
+    if (emailFieldWrapper) emailFieldWrapper.style.display = 'block';
+    if (emailInput) emailInput.required = true;
+  } else {
+    if (usernameInput) usernameInput.placeholder = "Username or email";
+    if (submitBtn) submitBtn.innerText = 'Log In';
+    if (toggleBtn) toggleBtn.innerText = 'Create account';
+    if (emailFieldWrapper) emailFieldWrapper.style.display = 'none';
+    if (emailInput) emailInput.required = false;
+  }
+}
+
+async function handleAuth(e) {
+  e.preventDefault();
+  var usernameField = document.getElementById('auth-username');
+  var passwordField = document.getElementById('auth-password');
+  var emailField = document.getElementById('auth-email');
+
+  if (!usernameField || !passwordField) return;
+
+  var mainIdentifier = usernameField.value.trim();
+  var pass = passwordField.value;
+
+  await syncWithSupabase();
+
+  if (isSignUpMode) {
+    if (db.users[mainIdentifier]) {
+      alert('This channel username is already taken!');
+      return;
+    }
+    var email = emailField ? emailField.value.trim() : '';
+    var defaultDesc = 'No channel description provided.';
+    var defaultAvatar = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150';
+
+    pendingUserPayload = {
+      username: mainIdentifier,
+      password: pass,
+      email: email,
+      description: defaultDesc,
+      avatarUrl: defaultAvatar,
+      bannerUrl: '',
+      subscriptions: []
+    };
+
+    activeVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    var verifyModal = document.getElementById('verify-modal');
+    if (verifyModal) verifyModal.style.display = 'flex';
+
+    setTimeout(function () {
+      alert("System Verification Code: " + activeVerificationCode);
+    }, 400);
+
+  } else {
+    var user = db.users[mainIdentifier];
+    if (!user) {
+      user = Object.values(db.users).find(function (u) {
+        return u.email && u.email.toLowerCase() === mainIdentifier.toLowerCase();
+      });
+    }
+
+    if (!user || user.password !== pass) {
+      alert('Invalid username/email or password!');
+      return;
+    }
+
+    currentUser = user;
+    if (!currentUser.subscriptions) currentUser.subscriptions = [];
+    localStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+    sessionStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+    var authForm = document.getElementById('auth-form');
+    if (authForm) authForm.reset();
+    init();
+  }
+}
+
+function closeVerificationPortal() {
+  var verifyModal = document.getElementById('verify-modal');
+  if (verifyModal) verifyModal.style.display = 'none';
+  activeVerificationCode = null;
+  pendingUserPayload = null;
+}
+
+async function confirmVerificationCode() {
+  var codeInput = document.getElementById('verify-code-input');
+  if (!codeInput) return;
+
+  var enteredCode = codeInput.value.trim();
+  if (enteredCode === activeVerificationCode && pendingUserPayload) {
+
+    if (supabaseClient) {
+      const { error } = await supabaseClient.from('users').insert([pendingUserPayload]);
+      if (error) {
+        alert("Error saving account to Supabase: " + error.message);
+        return;
+      }
+    }
+
+    db.users[pendingUserPayload.username] = pendingUserPayload;
+    currentUser = pendingUserPayload;
+    localStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+    sessionStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+
+    codeInput.value = '';
+    var authForm = document.getElementById('auth-form');
+    if (authForm) authForm.reset();
+
+    var verifyModal = document.getElementById('verify-modal');
+    if (verifyModal) verifyModal.style.display = 'none';
+
+    alert('Account created and verified successfully!');
+    init();
+  } else {
+    alert('Incorrect 6-digit code!');
+  }
+}
+
+function logout() {
+  currentUser = null;
+  localStorage.removeItem('jsidoer_current_user');
+  sessionStorage.removeItem('jsidoer_current_user');
+  init();
+}
+
+window.onload = init;
+
+// Optimized Feed Renderer using DocumentFragments and Bulk HTML Generation
+window.renderFeed = async function (filter) {
+  await syncWithSupabase();
+  var cleanFilter = filter || '';
+  var grid = document.getElementById('main-video-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  var matchedVideos = db.videos.filter(function (vid) {
+    return (vid.title && vid.title.toLowerCase().includes(cleanFilter)) ||
+      (vid.author && vid.author.toLowerCase().includes(cleanFilter));
+  });
+
+  if (matchedVideos.length === 0) {
+    grid.innerHTML = '<p style="padding:20px; color:var(--yt-text-secondary); text-align:center; grid-column: 1/-1;">No videos found.</p>';
+    return;
+  }
+
+  var fragment = document.createDocumentFragment();
+  var htmlBuffer = '';
+
+  matchedVideos.forEach(function (vid) {
+    var authorMeta = db.users[vid.author] || { avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150', description: '' };
+    var thumbHtml = generateCleanVisualThumbnailElement(vid.videoUrl);
+
+    htmlBuffer += '<div class="video-card">' +
+      '<div class="thumbnail-wrapper" data-action="play" data-id="' + vid.id + '">' + thumbHtml + '</div>' +
+      '<div class="video-details">' +
+      '<img class="author-avatar" src="' + (authorMeta.avatarUrl || '') + '" alt="avatar" data-action="profile" data-author="' + (vid.author || '') + '">' +
+      '<div class="video-text-meta">' +
+      '<h4 data-action="play" data-id="' + vid.id + '">' + (vid.title || '') + '</h4>' +
+      '<p class="video-author-link" data-action="profile" data-author="' + (vid.author || '') + '">' + (vid.author || '') + '</p>' +
+      '<p class="sub-text">' + (vid.views || 0) + ' views</p>' +
+      '</div>' +
+      '</div>' +
+      '</div>';
+  });
+
+  var tempDiv = document.createElement('div');
+  tempDiv.innerHTML = htmlBuffer;
+  while (tempDiv.firstChild) {
+    fragment.appendChild(tempDiv.firstChild);
+  }
+  grid.appendChild(fragment);
+};
+
+function generateCleanVisualThumbnailElement(url) {
+  if (!url) return "<div style='width:100%;height:100%;background:#333;'></div>";
+  var youtubeId = extractYoutubeIdentifier(url);
+  if (youtubeId) {
+    return '<img src="https://img.youtube.com/vi/' + youtubeId + '/mqdefault.jpg" loading="lazy" style="width:100%; height:100%; object-fit:cover;">';
+  }
+  return '<video src="' + url + '#t=0.5" preload="none" muted></video>';
+}
+
+function extractYoutubeIdentifier(url) {
+  if (!url) return null;
+  var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  var match = url.match(regExp);
+  if (match && match.length >= 3 && match[2].length === 11) {
+    return match[2];
+  }
+  return null;
+}
+
+// Increment Video Views Logically in Supabase
+async function incrementVideoViews(videoId) {
+  if (!supabaseClient || !videoId) return;
+
+  const { data } = await supabaseClient
+    .from('videos')
+    .select('views')
+    .eq('id', String(videoId))
+    .maybeSingle();
+
+  const currentViews = data ? (data.views || 0) : 0;
+  const newViews = currentViews + 1;
+
+  await supabaseClient
+    .from('videos')
+    .update({ views: newViews })
+    .eq('id', String(videoId));
+
+  if (currentlyPlayingVideoData && String(currentlyPlayingVideoData.id) === String(videoId)) {
+    currentlyPlayingVideoData.views = newViews;
+  }
+}
+
+// Fetch saved playback position from Supabase
+async function getSavedVideoProgress(videoId) {
+  if (!currentUser || !videoId || !supabaseClient) return 0;
+
+  try {
+    var { data } = await supabaseClient
+      .from('video_progress')
+      .select('progress_seconds')
+      .eq('username', currentUser.username)
+      .eq('video_id', String(videoId))
+      .maybeSingle();
+
+    return data ? Number(data.progress_seconds) || 0 : 0;
+  } catch (err) {
+    console.error('Error fetching progress:', err);
+    return 0;
+  }
+}
+
+// Save current playback position to Supabase
+var progressSaveTimer = null;
+async function saveVideoProgress(videoId, currentSeconds, duration) {
+  if (!currentUser || !videoId || !supabaseClient) return;
+
+  var savedTime = currentSeconds;
+  if (duration && (duration - currentSeconds) < 5) {
+    savedTime = 0;
+  }
+
+  try {
+    await supabaseClient.from('video_progress').upsert(
+      {
+        username: currentUser.username,
+        video_id: String(videoId),
+        progress_seconds: Math.floor(savedTime),
+        updated_at: new Date()
+      },
+      { onConflict: 'username,video_id' }
+    );
+  } catch (err) {
+    console.error('Error saving progress:', err);
+  }
+}
+
+async function launchVideoPlayback(id) {
+  if (supabaseClient) {
+    await supabaseClient.auth.getSession();
+  }
+
+  await syncWithSupabase();
+  var targetVid = db.videos.find(function (v) { return String(v.id) === String(id); });
+  if (!targetVid) return;
+
+  currentlyPlayingVideoData = targetVid;
+  closeMiniplayerAction();
+
+  await incrementVideoViews(targetVid.id);
+
+  var watchSection = document.getElementById('watch-section');
+  var homeSec = document.getElementById('home-section');
+  var chanSec = document.getElementById('channel-section');
+  var playerContainer = document.getElementById('main-watch-player-container');
+  var titleDisplay = document.getElementById('watch-video-title');
+  var authorName = document.getElementById('watch-channel-name');
+  var authorAvatar = document.getElementById('watch-channel-avatar');
+
+  if (homeSec) homeSec.style.display = 'none';
+  if (chanSec) chanSec.style.display = 'none';
+  if (watchSection) watchSection.style.display = 'block';
+
+  if (titleDisplay) titleDisplay.innerText = targetVid.title;
+  if (authorName) authorName.innerText = targetVid.author;
+
+  var authorMeta = db.users[targetVid.author] || { avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150' };
+  if (authorAvatar) authorAvatar.src = authorMeta.avatarUrl;
+
+  var savedTimestamp = await getSavedVideoProgress(targetVid.id);
+
+  if (playerContainer) {
+    var ytId = extractYoutubeIdentifier(targetVid.videoUrl);
+    if (ytId) {
+      var startParam = savedTimestamp > 3 ? '&start=' + Math.floor(savedTimestamp) : '';
+      playerContainer.innerHTML = '<iframe id="active-media-element" src="https://www.youtube.com/embed/' + ytId + '?enablejsapi=1&autoplay=1' + startParam + '" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    } else {
+      playerContainer.innerHTML = '<video id="active-media-element" src="' + targetVid.videoUrl + '" controls autoplay playsinline></video>';
+
+      var videoEl = document.getElementById('active-media-element');
+      if (videoEl) {
+        videoEl.addEventListener('loadedmetadata', function () {
+          if (savedTimestamp > 3 && savedTimestamp < videoEl.duration - 5) {
+            videoEl.currentTime = savedTimestamp;
+          }
+        });
+
+        videoEl.addEventListener('timeupdate', function () {
+          if (videoEl.currentTime > 0 && !videoEl.paused) {
+            clearTimeout(progressSaveTimer);
+            progressSaveTimer = setTimeout(function () {
+              saveVideoProgress(targetVid.id, videoEl.currentTime, videoEl.duration);
+            }, 3000);
+          }
+        });
+
+        videoEl.addEventListener('pause', function () {
+          saveVideoProgress(targetVid.id, videoEl.currentTime, videoEl.duration);
+        });
+
+        videoEl.addEventListener('ended', function () {
+          saveVideoProgress(targetVid.id, 0, videoEl.duration);
+        });
+      }
+    }
+  }
+
+  refreshActiveSubscriptionAndLikeMetrics();
+  await loadVideoSocialData(targetVid.id);
+  if (watchSection) watchSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function handleMiniplayerTransition() {
+  var watchSection = document.getElementById('watch-section');
+  var miniPortal = document.getElementById('miniplayer-portal');
+  var miniContent = document.getElementById('miniplayer-video-content');
+  var mediaEl = document.getElementById('active-media-element');
+
+  if (currentlyPlayingVideoData && mediaEl) {
+    if (watchSection) watchSection.style.display = 'none';
+    if (miniPortal && miniContent) {
+      miniContent.appendChild(mediaEl);
+      miniPortal.style.display = 'block';
+    }
+  }
+}
+
+function expandMiniplayerAction() {
+  var miniPortal = document.getElementById('miniplayer-portal');
+  var watchSection = document.getElementById('watch-section');
+  var playerContainer = document.getElementById('main-watch-player-container');
+  var homeSec = document.getElementById('home-section');
+  var chanSec = document.getElementById('channel-section');
+  var mediaEl = document.getElementById('active-media-element');
+
+  if (currentlyPlayingVideoData && mediaEl) {
+    if (miniPortal) miniPortal.style.display = 'none';
+    if (homeSec) homeSec.style.display = 'none';
+    if (chanSec) chanSec.style.display = 'none';
+
+    if (watchSection && playerContainer) {
+      playerContainer.appendChild(mediaEl);
+      watchSection.style.display = 'block';
+      watchSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}
+
+function closeMiniplayerAction() {
+  var miniPortal = document.getElementById('miniplayer-portal');
+  var miniContent = document.getElementById('miniplayer-video-content');
+  if (miniPortal) miniPortal.style.display = 'none';
+  if (miniContent) miniContent.innerHTML = '';
+}
+
+function showSection(section, targetedChannelName) {
+  var homeSec = document.getElementById('home-section');
+  var chanSec = document.getElementById('channel-section');
+  var watchSection = document.getElementById('watch-section');
+  var sideHome = document.getElementById('side-home');
+  var sideChannel = document.getElementById('side-channel');
+
+  if (sideHome) sideHome.classList.remove('active');
+  if (sideChannel) sideChannel.classList.remove('active');
+
+  if (currentlyPlayingVideoData) {
+    handleMiniplayerTransition();
+  } else {
+    if (watchSection) watchSection.style.display = 'none';
+  }
+
+  if (section === 'home') {
+    if (homeSec) homeSec.style.display = 'block';
+    if (chanSec) chanSec.style.display = 'none';
+    if (sideHome) sideHome.classList.add('active');
+    activeViewingChannel = null;
+    window.renderFeed();
+  } else if (section === 'my-channel') {
+    if (homeSec) homeSec.style.display = 'none';
+    if (chanSec) chanSec.style.display = 'block';
+    if (sideChannel) sideChannel.classList.add('active');
+    activeViewingChannel = currentUser ? currentUser.username : null;
+    renderChannelView();
+  } else if (section === 'view-profile') {
+    if (homeSec) homeSec.style.display = 'none';
+    if (chanSec) chanSec.style.display = 'block';
+    activeViewingChannel = targetedChannelName;
+    renderChannelView();
+  }
+}
+
+function computeTotalChannelSubscribers(channelName) {
+  var count = 0;
+  Object.values(db.users).forEach(function (u) {
+    if (u.subscriptions && u.subscriptions.includes(channelName)) {
+      count++;
+    }
+  });
+  return count;
+}
+
+function refreshActiveSubscriptionAndLikeMetrics() {
+  if (!currentlyPlayingVideoData) return;
+
+  var subCounterNode = document.getElementById('watch-subscriber-count');
+  if (subCounterNode) {
+    var totalSubs = computeTotalChannelSubscribers(currentlyPlayingVideoData.author);
+    var formattedSubs = totalSubs >= 1000 ? (totalSubs / 1000).toFixed(0) + "K subscribers" : totalSubs + " subscribers";
+    var views = currentlyPlayingVideoData.views || 0;
+    subCounterNode.innerText = `${formattedSubs} • ${views} views`;
+  }
+
+  var subBtn = document.getElementById('watch-sub-button');
+  if (subBtn && currentUser) {
+    if (currentUser.username === currentlyPlayingVideoData.author) {
+      subBtn.style.display = 'none';
+    } else {
+      subBtn.style.display = 'block';
+      if (currentUser.subscriptions && currentUser.subscriptions.includes(currentlyPlayingVideoData.author)) {
+        subBtn.innerText = "Subscribed";
+        subBtn.classList.add('subscribed');
+      } else {
+        subBtn.innerText = "Subscribe";
+        subBtn.classList.remove('subscribed');
+      }
+    }
+  }
+}
+
+async function toggleSubscribeAction(origin) {
+  if (!currentUser) return alert("Log in to subscribe to channels!");
+
+  var targetChannel = null;
+  if (origin === 'watch' && currentlyPlayingVideoData) {
+    targetChannel = currentlyPlayingVideoData.author;
+  } else if (origin === 'profile' && activeViewingChannel) {
+    targetChannel = activeViewingChannel;
+  }
+
+  if (!targetChannel) return;
+  if (!currentUser.subscriptions) currentUser.subscriptions = [];
+
+  var index = currentUser.subscriptions.indexOf(targetChannel);
+  if (index > -1) {
+    currentUser.subscriptions.splice(index, 1);
+  } else {
+    currentUser.subscriptions.push(targetChannel);
+  }
+
+  if (supabaseClient) {
+    await supabaseClient.from('users').update({ subscriptions: currentUser.subscriptions }).eq('username', currentUser.username);
+  }
+
+  localStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+  sessionStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+
+  if (origin === 'watch' || (currentlyPlayingVideoData && currentlyPlayingVideoData.author === targetChannel)) {
+    refreshActiveSubscriptionAndLikeMetrics();
+  }
+  if (document.getElementById('channel-section').style.display === 'block') {
+    renderChannelView();
+  }
+}
+
+async function renderChannelView() {
+  await syncWithSupabase();
+  if (!activeViewingChannel) return;
+  var targetedAccount = db.users[activeViewingChannel];
+  if (!targetedAccount) {
+    alert("Channel record not found.");
+    showSection('home');
+    return;
+  }
+
+  var nameDisplay = document.getElementById('channel-name-display');
+  var descDisplay = document.getElementById('channel-desc-display');
+  var avatarImg = document.getElementById('channel-avatar');
+  var bannerBox = document.getElementById('channel-banner-element');
+  var statsDisplay = document.getElementById('channel-stats-display');
+  var dropdownAnchor = document.getElementById('channel-dropdown-anchor');
+  var subActionWrapper = document.getElementById('channel-profile-action-wrapper');
+  var subBtn = document.getElementById('channel-sub-button');
+
+  if (nameDisplay) nameDisplay.innerText = targetedAccount.username || '';
+  if (descDisplay) descDisplay.innerText = targetedAccount.description || 'No description provided.';
+  if (avatarImg) avatarImg.src = targetedAccount.avatarUrl || '';
+
+  if (currentUser && currentUser.username === targetedAccount.username) {
+    if (dropdownAnchor) dropdownAnchor.style.display = 'block';
+    if (subActionWrapper) subActionWrapper.style.display = 'none';
+  } else {
+    if (dropdownAnchor) dropdownAnchor.style.display = 'none';
+    if (subActionWrapper) subActionWrapper.style.display = 'flex';
+    if (subBtn && currentUser) {
+      if (currentUser.subscriptions && currentUser.subscriptions.includes(targetedAccount.username)) {
+        subBtn.innerText = "Subscribed";
+        subBtn.classList.add('subscribed');
+      } else {
+        subBtn.innerText = "Subscribe";
+        subBtn.classList.remove('subscribed');
+      }
+    }
+  }
+
+  var userVideos = db.videos.filter(function (v) { return v.author === targetedAccount.username; });
+  var totalUploadedVideos = userVideos.length;
+  var totalSubs = computeTotalChannelSubscribers(targetedAccount.username);
+  var formattedSubscribersText = totalSubs >= 1000 ? (totalSubs / 1000).toFixed(0) + "K subscribers" : totalSubs + " subscribers";
+
+  if (statsDisplay) {
+    statsDisplay.innerText = '@' + targetedAccount.username.toLowerCase() + ' • ' + formattedSubscribersText + ' • ' + totalUploadedVideos + ' videos';
+  }
+
+  if (bannerBox) {
+    if (targetedAccount.bannerUrl && targetedAccount.bannerUrl.trim() !== "") {
+      bannerBox.style.backgroundImage = "url('" + targetedAccount.bannerUrl + "')";
+    } else {
+      bannerBox.style.backgroundImage = 'none';
+      bannerBox.style.backgroundColor = 'var(--yt-light-black)';
+    }
+  }
+
+  var myGrid = document.getElementById('channel-videos-grid');
+  if (!myGrid) return;
+  myGrid.innerHTML = '';
+
+  window.appendChannelVideosToGrid(userVideos, myGrid);
+}
+
+// Bulk DOM Insertion for Channel Grid
+window.appendChannelVideosToGrid = function (videos, gridContainer) {
+  if (!videos || videos.length === 0) {
+    gridContainer.innerHTML = '<p style="padding:20px; color:var(--yt-text-secondary); text-align:center; grid-column: 1/-1;">This channel has not uploaded any videos yet.</p>';
+    return;
+  }
+
+  var fragment = document.createDocumentFragment();
+  var htmlBuffer = '';
+
+  videos.forEach(function (vid) {
+    var thumbHtml = generateCleanVisualThumbnailElement(vid.videoUrl);
+
+    var deleteBtnHtml = '';
+    if (currentUser && currentUser.username === vid.author) {
+      deleteBtnHtml = '<button style="background:transparent; border:none; color:var(--danger-text); cursor:pointer; font-size:12px; margin-top:4px; text-align:left;" data-action="delete" data-id="' + vid.id + '">Delete Video</button>';
+    }
+
+    htmlBuffer += '<div class="video-card">' +
+      '<div class="thumbnail-wrapper" data-action="play" data-id="' + vid.id + '">' + thumbHtml + '</div>' +
+      '<div class="video-details">' +
+      '<div class="video-text-meta">' +
+      '<h4 data-action="play" data-id="' + vid.id + '">' + (vid.title || '') + '</h4>' +
+      '<p class="video-author-link">' + (vid.author || '') + '</p>' +
+      '<p class="sub-text">' + (vid.views || 0) + ' views</p>' +
+      deleteBtnHtml +
+      '</div>' +
+      '</div>' +
+      '</div>';
+  });
+
+  var tempDiv = document.createElement('div');
+  tempDiv.innerHTML = htmlBuffer;
+  while (tempDiv.firstChild) {
+    fragment.appendChild(tempDiv.firstChild);
+  }
+  gridContainer.appendChild(fragment);
+};
+
+async function removeTargetVideo(id) {
+  if (!confirm("Are you sure you want to delete this video?")) return;
+  if (supabaseClient) {
+    await supabaseClient.from('videos').delete().eq('id', id);
+  }
+  await renderChannelView();
+}
+
+async function processVideoUpload() {
+  var titleInput = document.getElementById('video-title-input');
+  var urlInput = document.getElementById('video-url-input');
+  var fileInput = document.getElementById('video-file-input');
+  var submitBtn = document.getElementById('upload-submit-btn');
+
+  if (!titleInput || !currentUser) return;
+
+  var title = titleInput.value.trim();
+  var videoUrl = urlInput ? urlInput.value.trim() : '';
+
+  if (!title) return alert('Please enter a video title!');
+
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    var file = fileInput.files[0];
+    if (supabaseClient) {
+      submitBtn.innerText = "Uploading File to Storage...";
+      submitBtn.disabled = true;
+
+      var fileExt = file.name.split('.').pop();
+      var fileName = Date.now() + '_' + Math.random().toString(36).substring(2, 8) + '.' + fileExt;
+
+      var { data: uploadData, error: uploadError } = await supabaseClient.storage
+        .from('videos')
+        .upload(fileName, file, { cacheControl: '3600', upsert: true });
+
+      if (uploadError) {
+        alert('File Upload Failed: ' + uploadError.message);
+        submitBtn.innerText = "Upload";
+        submitBtn.disabled = false;
+        return;
+      }
+
+      var { data: urlData } = supabaseClient.storage
+        .from('videos')
+        .getPublicUrl(fileName);
+
+      videoUrl = urlData.publicUrl;
+      submitBtn.innerText = "Upload";
+      submitBtn.disabled = false;
+    }
+  }
+
+  if (!videoUrl) return alert('Provide a video URL or select an MP4 file to upload!');
+
+  var newVid = {
+    id: "vid-" + Date.now(),
+    title: title,
+    videoUrl: videoUrl,
+    author: currentUser.username,
+    likes: 0,
+    views: 0
+  };
+
+  if (supabaseClient) {
+    const { error: dbError } = await supabaseClient.from('videos').insert([newVid]);
+    if (dbError) {
+      alert("Error saving video metadata: " + dbError.message);
+      return;
+    }
+  }
+
+  await syncWithSupabase();
+
+  closeUploadModal();
+  titleInput.value = '';
+  if (urlInput) urlInput.value = '';
+  if (fileInput) fileInput.value = '';
+
+  if (activeViewingChannel === currentUser.username) {
+    renderChannelView();
+  } else {
+    window.renderFeed();
+  }
+}
+
+function handleSearch() {
+  var searchInput = document.getElementById('search-input');
+  if (!searchInput) return;
+  var term = searchInput.value.toLowerCase().trim();
+  showSection('home');
+  window.renderFeed(term);
+}
+
+function navigateToChannelFromWatch() {
+  if (currentlyPlayingVideoData) {
+    showSection('view-profile', currentlyPlayingVideoData.author);
+  }
+}
+
+function openUploadModal() {
+  var uploadModal = document.getElementById('upload-modal');
+  if (uploadModal) uploadModal.style.display = 'flex';
+}
+
+function closeUploadModal() {
+  var uploadModal = document.getElementById('upload-modal');
+  if (uploadModal) uploadModal.style.display = 'none';
+}
+
+function openEditChannelModal() {
+  var editModal = document.getElementById('edit-channel-modal');
+  var descInput = document.getElementById('edit-desc-input');
+  if (currentUser && descInput) {
+    descInput.value = currentUser.description || '';
+  }
+  if (editModal) editModal.style.display = 'flex';
+  toggleDropdown();
+}
+
+function closeEditModal() {
+  var editModal = document.getElementById('edit-channel-modal');
+  if (editModal) editModal.style.display = 'none';
+}
+
+async function saveChannelEdits() {
+  var descInput = document.getElementById('edit-desc-input');
+  if (!descInput || !currentUser) return;
+
+  var updatedDesc = descInput.value.trim();
+  currentUser.description = updatedDesc;
+
+  if (supabaseClient) {
+    await supabaseClient.from('users').update({ description: updatedDesc }).eq('username', currentUser.username);
+  }
+
+  localStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+  sessionStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+  closeEditModal();
+  renderChannelView();
+}
+
+async function triggerAvatarUpload() {
+  if (!currentUser || activeViewingChannel !== currentUser.username) return;
+  var newUrl = prompt("Enter new Avatar Image URL:", currentUser.avatarUrl || "");
+  if (newUrl !== null && newUrl.trim() !== "") {
+    currentUser.avatarUrl = newUrl.trim();
+    if (supabaseClient) {
+      await supabaseClient.from('users').update({ avatarUrl: currentUser.avatarUrl }).eq('username', currentUser.username);
+    }
+    localStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+    sessionStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+    renderChannelView();
+  }
+}
+
+async function triggerBannerUpload() {
+  if (!currentUser || activeViewingChannel !== currentUser.username) return;
+  var newUrl = prompt("Enter new Channel Banner Image URL:", currentUser.bannerUrl || "");
+  if (newUrl !== null && newUrl.trim() !== "") {
+    currentUser.bannerUrl = newUrl.trim();
+    if (supabaseClient) {
+      await supabaseClient.from('users').update({ bannerUrl: currentUser.bannerUrl }).eq('username', currentUser.username);
+    }
+    localStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+    sessionStorage.setItem('jsidoer_current_user', JSON.stringify(currentUser));
+    renderChannelView();
+  }
+}
+
+function toggleDropdown(e) {
+  if (e) e.stopPropagation();
+  var menu = document.getElementById('channel-options-menu');
+  if (!menu) return;
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+window.onclick = function (event) {
+  var menu = document.getElementById('channel-options-menu');
+  if (menu && !event.target.matches('.options-trigger-btn')) {
+    menu.style.display = 'none';
+  }
+};
+
+async function deleteChannel() {
+  if (!currentUser) return;
+  if (!confirm("Are you sure you want to delete your entire channel and videos? This action cannot be undone.")) return;
+
+  if (supabaseClient) {
+    await supabaseClient.from('videos').delete().eq('author', currentUser.username);
+    await supabaseClient.from('users').delete().eq('username', currentUser.username);
+  }
+
+  logout();
+}
+
+// =========================================================================
+// SOCIAL FEATURES & BACKEND METHODS
+// =========================================================================
+
+async function postComment(videoId, username, text, parentCommentId = null) {
+  if (!supabaseClient) {
+    alert("Supabase client is not initialized.");
+    return null;
+  }
+
+  const { data, error } = await supabaseClient
+    .from('comments')
+    .insert([
+      {
+        video_id: String(videoId),
+        author: username,
+        content: text,
+        parent_comment_id: parentCommentId
+      }
+    ]);
+
+  if (error) {
+    console.error('Error posting comment:', error);
+    alert("Comment failed to save: " + error.message);
+    return null;
+  }
+
+  return data;
+}
+
+async function deleteComment(commentId) {
+  if (!supabaseClient) return;
+  if (!confirm("Are you sure you want to delete this comment?")) return;
+
+  const { error } = await supabaseClient
+    .from('comments')
+    .delete()
+    .eq('id', commentId);
+
+  if (error) {
+    alert("Could not delete comment: " + error.message);
+    return;
+  }
+
+  if (currentlyPlayingVideoData) {
+    await renderCommentsList(currentlyPlayingVideoData.id);
+  }
+}
+
+async function handlePostReply(parentCommentId) {
+  if (!currentUser) return alert("Log in to reply!");
+  const input = document.getElementById(`reply-input-${parentCommentId}`);
+  if (!input || !input.value.trim()) return alert("Please enter a reply!");
+
+  if (!currentlyPlayingVideoData || !currentlyPlayingVideoData.id) return;
+
+  await postComment(currentlyPlayingVideoData.id, currentUser.username, input.value.trim(), parentCommentId);
+  await renderCommentsList(currentlyPlayingVideoData.id);
+}
+
+function toggleReplyBox(commentId) {
+  const box = document.getElementById(`reply-box-${commentId}`);
+  if (!box) return;
+  box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+}
+
+async function toggleHeartComment(commentId, currentHeartState) {
+  if (!supabaseClient) return;
+  const { error } = await supabaseClient
+    .from('comments')
+    .update({ is_hearted: !currentHeartState })
+    .eq('id', commentId);
+
+  if (error) {
+    console.error('Error hearting comment:', error);
+    alert("Could not update heart status: " + error.message);
+  }
+}
+
+async function togglePinComment(commentId, currentPinState) {
+  if (!supabaseClient) return;
+  const { error } = await supabaseClient
+    .from('comments')
+    .update({ is_pinned: !currentPinState })
+    .eq('id', commentId);
+
+  if (error) {
+    console.error('Error pinning comment:', error);
+    alert("Could not update pin status: " + error.message);
+  }
+}
+
+async function voteVideo(videoId, username, voteValue) {
+  if (!supabaseClient) return null;
+  const { data, error } = await supabaseClient
+    .from('video_likes')
+    .upsert(
+      { video_id: String(videoId), username: username, vote: voteValue },
+      { onConflict: 'video_id,username' }
+    );
+
+  if (error) {
+    console.error('Error saving vote:', error);
+    alert("Could not register vote: " + error.message);
+  }
+  return data;
+}
+
+async function fetchComments(videoId) {
+  if (!supabaseClient) return [];
+  const { data, error } = await supabaseClient
+    .from('comments')
+    .select('*')
+    .eq('video_id', String(videoId))
+    .order('is_pinned', { ascending: false })
+    .order('created_at', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching comments:', error);
+    return [];
+  }
+  return data;
+}
+
+async function getVoteCounts(videoId) {
+  if (!supabaseClient) return { likes: 0, dislikes: 0 };
+  const { data, error } = await supabaseClient
+    .from('video_likes')
+    .select('vote')
+    .eq('video_id', String(videoId));
+
+  if (error) {
+    console.error('Error fetching vote counts:', error);
+    return { likes: 0, dislikes: 0 };
+  }
+
+  const likes = data.filter(function (v) { return v.vote === 1; }).length;
+  const dislikes = data.filter(function (v) { return v.vote === -1; }).length;
+
+  return { likes, dislikes };
+}
+
+// =========================================================================
+// SOCIAL FEATURES UI GLUE
+// =========================================================================
+
+async function loadVideoSocialData(videoId) {
+  const votes = await getVoteCounts(videoId);
+  const likeEl = document.getElementById('like-count');
+  const dislikeEl = document.getElementById('dislike-count');
+  if (likeEl) likeEl.innerText = votes.likes;
+  if (dislikeEl) dislikeEl.innerText = votes.dislikes;
+
+  await renderCommentsList(videoId);
+}
+
+async function renderCommentsList(videoId) {
+  const commentsList = document.getElementById('comments-list');
+  if (!commentsList) return;
+
+  commentsList.innerHTML = '<p style="color:var(--yt-text-secondary);">Loading comments...</p>';
+  const allComments = await fetchComments(videoId);
+  commentsList.innerHTML = '';
+
+  if (!allComments || allComments.length === 0) {
+    commentsList.innerHTML = '<p style="color:var(--yt-text-secondary);">No comments yet. Be the first to comment!</p>';
+    return;
+  }
+
+  const parentComments = allComments.filter(function (c) { return !c.parent_comment_id; });
+  const replies = allComments.filter(function (c) { return c.parent_comment_id; });
+
+  var fragment = document.createDocumentFragment();
+
+  parentComments.forEach(function (c) {
+    const cardReplies = replies.filter(function (r) { return String(r.parent_comment_id) === String(c.id); });
+    const cardNode = createCommentNode(c, cardReplies);
+    fragment.appendChild(cardNode);
+  });
+
+  commentsList.appendChild(fragment);
+}
+
+function createCommentNode(c, commentReplies = []) {
+  const card = document.createElement('div');
+  card.className = `comment-card ${c.is_pinned ? 'pinned' : ''}`;
+
+  const isOwner = currentUser && currentlyPlayingVideoData && currentUser.username === currentlyPlayingVideoData.author;
+  const isAuthor = currentUser && currentUser.username === c.author;
+  const authorMeta = db.users[c.author] || { avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150' };
+
+  let repliesHtml = '';
+  if (commentReplies.length > 0) {
+    repliesHtml = `<div class="replies-container">`;
+    commentReplies.forEach(function (r) {
+      const replyAuthorMeta = db.users[r.author] || { avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150' };
+      const isReplyAuthor = currentUser && currentUser.username === r.author;
+
+      repliesHtml += `
+        <div class="comment-card">
+          <img class="author-avatar" src="${replyAuthorMeta.avatarUrl}" alt="Avatar" style="width:28px; height:28px;" />
+          <div class="comment-content-area">
+            <div class="comment-header">
+              <span class="comment-author">@${r.author}</span>
+            </div>
+            <div class="comment-content">${r.content}</div>
+            <div class="comment-actions">
+              ${isReplyAuthor || isOwner ? `<button onclick="deleteComment('${r.id}')" style="color: #ff4e4e;">Delete</button>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    repliesHtml += `</div>`;
+  }
+
+  card.innerHTML = `
+    <img class="author-avatar" src="${authorMeta.avatarUrl}" alt="Avatar" />
+    <div class="comment-content-area">
+      <div class="comment-header">
+        <span class="comment-author">@${c.author}</span>
+        ${c.is_pinned ? '<span style="color:var(--yt-text-secondary); font-size: 0.75rem;">📌 Pinned by creator</span>' : ''}
+      </div>
+      <div class="comment-content">${c.content}</div>
+      <div class="comment-actions">
+        <button onclick="handleHeart('${c.id}', ${c.is_hearted})">
+          ${c.is_hearted ? '❤️ Hearted' : '🤍 Heart'}
+        </button>
+        <button onclick="toggleReplyBox('${c.id}')">Reply</button>
+        ${isOwner ? `<button onclick="handlePin('${c.id}', ${c.is_pinned})">${c.is_pinned ? 'Unpin' : 'Pin'}</button>` : ''}
+        ${isAuthor || isOwner ? `<button onclick="deleteComment('${c.id}')" style="color: #ff4e4e;">Delete</button>` : ''}
+      </div>
+
+      <div id="reply-box-${c.id}" class="add-comment-box" style="display:none; margin-top: 10px;">
+        <input type="text" id="reply-input-${c.id}" placeholder="Add a reply..." />
+        <button class="yt-btn primary" onclick="handlePostReply('${c.id}')">Reply</button>
+      </div>
+
+      ${repliesHtml}
+    </div>
+  `;
+
+  return card;
+}
+
+async function handlePostComment() {
+  if (!currentUser) return alert("Log in to post a comment!");
+  const input = document.getElementById('comment-input');
+  if (!input || !input.value.trim()) return alert("Please enter a comment!");
+
+  if (!currentlyPlayingVideoData || !currentlyPlayingVideoData.id) {
+    return alert("No active video selected. Please choose a video first!");
+  }
+
+  await postComment(currentlyPlayingVideoData.id, currentUser.username, input.value.trim());
+  input.value = '';
+  await renderCommentsList(currentlyPlayingVideoData.id);
+}
+
+async function handleVote(value) {
+  if (!currentUser) return alert("Log in to vote!");
+  if (!currentlyPlayingVideoData) return;
+
+  await voteVideo(currentlyPlayingVideoData.id, currentUser.username, value);
+  await loadVideoSocialData(currentlyPlayingVideoData.id);
+}
+
+async function handleHeart(commentId, currentState) {
+  if (!currentUser || !currentlyPlayingVideoData) return;
+  if (currentUser.username !== currentlyPlayingVideoData.author) return alert("Only the video creator can heart comments!");
+
+  await toggleHeartComment(commentId, currentState);
+  await renderCommentsList(currentlyPlayingVideoData.id);
+}
+
+async function handlePin(commentId, currentState) {
+  if (!currentUser || !currentlyPlayingVideoData) return;
+  if (currentUser.username !== currentlyPlayingVideoData.author) return alert("Only the video creator can pin comments!");
+
+  await togglePinComment(commentId, currentState);
+  await renderCommentsList(currentlyPlayingVideoData.id);
+}</script></body><html>
